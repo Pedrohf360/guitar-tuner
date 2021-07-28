@@ -1,19 +1,21 @@
-const canvas_width = 400;
-const canvas_height = 400;
+const canvas_width = 480;
+const canvas_height = 305;
+
+
 
 const model_crepe_url = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe';
 
 let modifyX;
 
 let pitch;
-let mic
+let mic;
 let currentFreq;
 let diffFrequencyToDiffString = 15;
 
 let moveXsecondPointRight = true;
 let moveXsecondPointLeft = false;
 
-let threshold = 1 ;
+let threshold = 1;
 
 let guitarStrings = [{
   name: 'Mi (grave)',
@@ -58,7 +60,7 @@ function sortGuitarStringsByFreq(order = 'asc') {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(canvas_width, canvas_height);
   sortGuitarStringsByFreq();
   setTextConfigs();
   displayButton();
@@ -66,15 +68,15 @@ function setup() {
 
 function draw() {
 
-  background(200);
-  arc(canvas_width / 2, canvas_height / 2, 200, 200, -PI, 0, CHORD);
+  background(100);
+  arc(canvas_width / 2, canvas_height / 1.7, 200, 200, -PI, 0, CHORD);
 
   if (!currentFreq) {
 
     showTuneText('--');
 
     // here, should move second point to right, because it's a high frequency
-    line(canvas_width / 2, canvas_height / 2, xSecondPoint, ySecondPoint);
+    line(canvas_width / 2, canvas_height / 1.7, xSecondPoint, ySecondPoint);
     return;
   }
 
@@ -176,14 +178,14 @@ function inicMic() {
 
 function showTuneText(displayText) {
   const positionX = canvas_width / 2;
-  const positionY = canvas_height / 5;
+  const positionY = canvas_height / 6;
 
   text(displayText, positionX, positionY);
 }
 
 function showTuneLine() {
   const positionXfirstPoint = canvas_width / 2;
-  const positionYfirstPoint = canvas_height / 2;
+  const positionYfirstPoint = canvas_height / 1.7;
 
   if (moveXsecondPointRight) {
     modifyX = 20;
@@ -205,6 +207,6 @@ function displayButton() {
   button = createButton('Começar a Afinar');
   button.style('font-size', '30px');
   button.style('background-color', 'lightgreen');
-  button.position(positionXfirstPoint - 118, positionYfirstPoint - 80);
+
   button.mousePressed(inicMic);
 }
